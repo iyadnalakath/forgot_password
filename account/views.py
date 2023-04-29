@@ -61,6 +61,29 @@ class LoginView(APIView):
             return Response(context, status=status.HTTP_401_UNAUTHORIZED)
 
 
+@api_view(['POST'])
+def login_views(request):
+    context = {}
+    username = request.data.get("username")
+    password = request.data.get("password")
+    account = authenticate(username=username, password=password)
+
+    if account:
+        try:
+            token = Token.objects.get(user=account)
+        except Token.DoesNotExist:
+            token = Token.objects.create(user=account)
+        context["response"] = "Successfully authenticated."
+        context["pk"] = account.pk
+        context["username"] = username.lower()
+        context["token"] = token.key
+        # context["role"] = account.role
+        return Response(context, status=status.HTTP_200_OK)
+    else:
+        context["response"] = "Error"
+        context["error_message"] = "The username or password is incorrect"
+        return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
 class RegisterDetailView(ModelViewSet):
 
     queryset=Account.objects.all()

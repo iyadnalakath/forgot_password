@@ -13,11 +13,11 @@ from django.contrib.auth.hashers import make_password
 
 class RegistrationSerializer(serializers.ModelSerializer):
 
-    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    comfirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = Account
-        fields = ['email','username','password', 'password2']
+        fields = ['email','username','password', 'comfirm_password']
         extra_kwargs = {
                 'password': {'write_only': True},
         }    
@@ -31,8 +31,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
             
         )
         password = self.validated_data['password']
-        password2 = self.validated_data['password2']
-        if password != password2:
+        comfirm_password = self.validated_data['comfirm_password']
+        if password != comfirm_password:
             raise serializers.ValidationError({'password': 'Passwords must match.'})
         account.set_password(password)
         account.save()
