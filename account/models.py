@@ -31,8 +31,8 @@ class Account(AbstractUser):
         (user_admin, "admin"),
     ]
 
-    email = models.EmailField(verbose_name="email",blank=True,unique=False)
-    username = models.CharField(max_length=60, unique=True)
+    email = models.EmailField(verbose_name="email",unique=True)
+    username = models.CharField(max_length=60, unique=True,null=True)
     is_admin = models.BooleanField(default=False, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
     is_staff = models.BooleanField(default=False, null=True, blank=True)
@@ -43,7 +43,6 @@ class Account(AbstractUser):
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = [
-
         "email",
     ]
 
