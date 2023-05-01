@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_rest_passwordreset",
     "corsheaders",
-
     "djoser",
+    
     "account"
 ]
 AUTH_USER_MODEL = 'account.Account'
