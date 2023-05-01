@@ -31,7 +31,7 @@ class Account(AbstractUser):
         (user_admin, "admin"),
     ]
 
-    email = models.EmailField(("email address"), blank=True)
+    email = models.EmailField(verbose_name="email",blank=True,unique=False)
     username = models.CharField(max_length=60, unique=True)
     is_admin = models.BooleanField(default=False, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
@@ -47,14 +47,14 @@ class Account(AbstractUser):
         "email",
     ]
 
-    def __str__(self) -> str:
-        return self.username
+    # def __str__(self) -> str:
+    #     return self.username
 
     # def __str__(self) -> str:
     #     return self.full_name
 
-    def __str__(self):
-        return self.email
+    # def __str__(self):
+    #     return self.email
 
     # def __str__(self) -> str:
     #     return self.team_name
@@ -62,8 +62,8 @@ class Account(AbstractUser):
     # def has_perm(self, perm, obj=None):
     #     return self.is_admin
 
-    def has_module_perms(self, app_label):
-        return True
+    # def has_module_perms(self, app_label):
+    #     return True
     
     
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -73,14 +73,14 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 
-def send_password_reset_email(email, token):
-    subject = 'Password reset'
+# def send_password_reset_email(email, token):
+#     subject = 'Password reset'
 
-    message = f'Use this link to reset your password: https://mail-sender.vingb.com/custom-mail/edf554f6-c207-4ec7-a657-9285913a9a35{token}'
+#     message = f'Use this link to reset your password: https://mail-sender.vingb.com/custom-mail/edf554f6-c207-4ec7-a657-9285913a9a35{token}'
 
-    from_email = 'muhammediyadiyad@gmail.com'
-    recipient_list = [email]
-    send_mail(subject, message, from_email, recipient_list)
+#     from_email = 'muhammediyadiyad@gmail.com'
+#     recipient_list = [email]
+#     send_mail(subject, message, from_email, recipient_list)
 
 
 

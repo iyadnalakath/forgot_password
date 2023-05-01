@@ -35,6 +35,8 @@ class RegisterView(APIView):
             return Response(data, status=status_code)
         else:
             return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
+        
+
 
 class LoginView(APIView):
 
@@ -88,6 +90,7 @@ class RegisterDetailView(ModelViewSet):
 
     queryset=Account.objects.all()
     serializer_class=RegisterDetails
+    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
         if self.request.user.role == "admin":
@@ -182,38 +185,54 @@ class PasswordResetConfirmView(APIView):
 
 
 
-@api_view(['POST','GET'])
-@permission_classes((AllowAny, ))
-def forgot_password(request):
-    # Check old password
-    data = {}
-    if Account.objects.filter(email=request.data.get('email')).exists():
-        password = password_generater(8)
 
-        user = Account.objects.get(email=request.data.get('email'))
-        user.set_password(password)
-        user.save()
-        # from_email = "mail.osperb@gmail.com"
-        to_email = user.email
-        subject = "Password changed Successfully"
-        html_context = {
-            "title":"Password changed Successfully",
-            "data":[
-                {
-                    "label":"email",
-                    "value":user.email
-                },
-                {
-                    "label":"Your New Password",
-                    "value":password
-                }
-            ]
-        }
-        text_content = str(html_context)
-        send_common_mail(html_context,to_email,subject)
-        data['response'] = "Your new password has been sent to your email"
+
+
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def register_list(request):
+#     if request.user.role == "admin":
+#         queryset = Account.objects.all()
+#         serializer = RegisterDetails(queryset, many=True)
+#         return Response(serializer.data)
+#     else:
+#         queryset = Account.objects.filter(id=request.user.id)
+#         serializer = RegisterDetails(queryset, many=True)
+#         return Response(serializer.data)
+
+
+# @api_view(['POST','GET'])
+# @permission_classes((AllowAny, ))
+# def forgot_password(request):
+#     # Check old password
+#     data = {}
+#     if Account.objects.filter(email=request.data.get('email')).exists():
+#         password = password_generater(8)
+
+#         user = Account.objects.get(email=request.data.get('email'))
+#         user.set_password(password)
+#         user.save()
+#         # from_email = "mail.osperb@gmail.com"
+#         to_email = user.email
+#         subject = "Password changed Successfully"
+#         html_context = {
+#             "title":"Password changed Successfully",
+#             "data":[
+#                 {
+#                     "label":"email",
+#                     "value":user.email
+#                 },
+#                 {
+#                     "label":"Your New Password",
+#                     "value":password
+#                 }
+#             ]
+#         }
+#         text_content = str(html_context)
+#         send_common_mail(html_context,to_email,subject)
+#         data['response'] = "Your new password has been sent to your email"
         
-    else:
-        data['response'] = "Email does not exist"
+#     else:
+#         data['response'] = "Email does not exist"
 
-    return Response(data, status=status.HTTP_200_OK)
+#     return Response(data, status=status.HTTP_200_OK)

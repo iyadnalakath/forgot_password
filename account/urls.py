@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView,LoginView,PasswordResetView,PasswordResetConfirmView,forgot_password,login_views
+from .views import RegisterView,LoginView,PasswordResetView,PasswordResetConfirmView,login_views
 from rest_framework_nested import routers
 from .import views
 
@@ -13,7 +13,7 @@ urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
     path("resetpassword/", PasswordResetView.as_view(), name="resetpassword"),
     path("confirmpassword/", PasswordResetConfirmView.as_view(), name="resetpassword"),
-    path('forgot_password/', forgot_password, name="forgot_password"),
+    # path('forgot_password/', forgot_password, name="forgot_password"),
     
 ]
 

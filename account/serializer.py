@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Account,send_password_reset_email,PasswordRest
+from .models import Account,PasswordRest
+from .function import send_password_reset_email
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode

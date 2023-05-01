@@ -9,13 +9,13 @@ from account.models import Account
 
 
 class AccountAdmin(UserAdmin):
-    list_display = ('pk','username','email',"is_admin","is_active","is_superuser","is_staff","role")
+    list_display = ('id','username','email',"is_admin","is_active","is_superuser","is_staff","role")
    
 
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
-    ordering = ('pk',)
+    # filter_horizontal = ()
+    # list_filter = ()
+    # fieldsets = ()
+    ordering = ('id',)
 
 
 admin.site.register(Account, AccountAdmin)
