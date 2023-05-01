@@ -27,6 +27,7 @@ class RegisterView(APIView):
             data["username"] = profile.username
             data["pk"] = profile.pk
             data["response"] = "successfully registered new user."
+            data["role"] = profile.role
 
             token = Token.objects.get(user=profile).key
             data["token"] = token
@@ -55,7 +56,7 @@ class LoginView(APIView):
             context["pk"] = account.pk
             context["username"] = username.lower()
             context["token"] = token.key
-            # context["role"] = account.role
+            context["role"] = account.role
             return Response(context, status=status.HTTP_200_OK)
         else:
             context["response"] = "Error"

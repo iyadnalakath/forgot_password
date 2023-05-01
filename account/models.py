@@ -46,24 +46,7 @@ class Account(AbstractUser):
         "email",
     ]
 
-    # def __str__(self) -> str:
-    #     return self.username
-
-    # def __str__(self) -> str:
-    #     return self.full_name
-
-    # def __str__(self):
-    #     return self.email
-
-    # def __str__(self) -> str:
-    #     return self.team_name
-
-    # def has_perm(self, perm, obj=None):
-    #     return self.is_admin
-
-    # def has_module_perms(self, app_label):
-    #     return True
-    
+ 
     
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -90,3 +73,24 @@ class PasswordRest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     account = models.ForeignKey(Account,on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True, null=True, blank=True)
+
+
+
+   # def __str__(self) -> str:
+    #     return self.username
+
+    # def __str__(self) -> str:
+    #     return self.full_name
+
+    # def __str__(self):
+    #     return self.email
+
+    # def __str__(self) -> str:
+    #     return self.team_name
+
+    # def has_perm(self, perm, obj=None):
+    #     return self.is_admin
+
+    # def has_module_perms(self, app_label):
+    #     return True
+    
