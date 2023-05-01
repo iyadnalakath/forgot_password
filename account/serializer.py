@@ -86,6 +86,27 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         
         user.save()
 
+# class PasswordResetConfirmSerializer(serializers.Serializer):
+#     password = serializers.CharField(max_length=128)
+#     confirm_password = serializers.CharField(max_length=128)
+#     token = serializers.CharField()
+
+#     def validate(self, data):
+#         if data['password'] != data['confirm_password']:
+#             raise serializers.ValidationError("Passwords do not match.")
+#         return data
+
+#     def save(self):
+#         try:
+#             user = PasswordRest.objects.get(pk=self.validated_data['token'],is_active=True).account
+#             user.password = make_password(self.validated_data['password'])
+#             user.save()
+#         except (TypeError, ValueError, OverflowError, Account.DoesNotExist):
+#             raise serializers.ValidationError("Invalid token.")
+        
+#         user.save()
+
+
 
 
 

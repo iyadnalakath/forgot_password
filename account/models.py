@@ -73,14 +73,10 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 
-# def send_password_reset_email(email, token):
-#     subject = 'Password reset'
 
-#     message = f'Use this link to reset your password: https://mail-sender.vingb.com/custom-mail/edf554f6-c207-4ec7-a657-9285913a9a35{token}'
+# Sure! @receiver(post_save, sender=settings.AUTH_USER_MODEL) is a decorator in Django that listens to a post_save signal (which gets triggered every time an object is saved) for the settings.AUTH_USER_MODEL model (which is the user model defined in the Django settings).
 
-#     from_email = 'muhammediyadiyad@gmail.com'
-#     recipient_list = [email]
-#     send_mail(subject, message, from_email, recipient_list)
+# In the context of the code you shared earlier, this decorator is used to automatically create a Token object for a user every time a new user is created.
 
 
 
