@@ -94,7 +94,8 @@ class RegisterDetailView(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
-        if self.request.user.role == "admin":
+        # if self.request.user.role == "admin":
+        if self.request.user.is_admin==True:
             instance = self.get_object()
             serializer = RegisterDetails(instance)
             return Response(serializer.data)
@@ -110,7 +111,8 @@ class RegisterDetailView(ModelViewSet):
         
 
     def list(self, request, *args, **kwargs):
-        if self.request.user.role == "admin":
+        # if self.request.user.role == "admin":
+        if self.request.user.is_admin==True:
             queryset = self.get_queryset()
             serializer = RegisterDetails(queryset, many=True)
             return Response(serializer.data)
@@ -124,7 +126,8 @@ class RegisterDetailView(ModelViewSet):
  
  
     def update(self, request, *args, **kwargs):
-        if self.request.user.role == "admin":
+        # if self.request.user.role == "admin":
+        if self.request.user.is_admin==True:
             instance = self.get_object()
             serializer = RegisterDetails(instance, data=request.data)
             if serializer.is_valid():
@@ -147,7 +150,8 @@ class RegisterDetailView(ModelViewSet):
             raise PermissionDenied("You are not allowed to update objects.")
         
     def destroy(self, request, *args, **kwargs):
-        if self.request.user.role == "admin":
+        # if self.request.user.role == "admin":
+        if self.request.user.is_admin==True:
             instance = self.get_object()
             self.perform_destroy(instance)
             return Response({"message": "successfully deleted."},status=status.HTTP_204_NO_CONTENT)
